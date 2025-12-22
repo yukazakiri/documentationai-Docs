@@ -1,0 +1,117 @@
+---
+title: Introduction to Louis Lukkanit
+description: Discover Louis Lukkanit, a collection of high-quality open-source Laravel packages and applications from Koamishin, designed to empower developers with tools for CMS, POS, and business systems.
+---
+
+## Overview
+
+Louis Lukkanit brings you premium open-source Laravel packages and applications crafted by Koamishin. You get robust tools for building CMS platforms, POS systems, and comprehensive business applications. These solutions prioritize developer productivity, code quality, and seamless integration into your Laravel projects.
+
+Koamishin focuses on empowering the community with maintainable, feature-rich code that scales. Whether you build e-commerce sites or enterprise dashboards, Louis Lukkanit accelerates your development.
+
+<Callout kind="info">
+  All packages follow Laravel best practices and support the latest LTS versions.
+</Callout>
+
+## Key Features
+
+Louis Lukkanit stands out with production-ready components designed for real-world use.
+
+<Columns cols={3}>
+  <Card title="CMS Builder" icon="layout" href="/docs/cms">
+    Create dynamic content management systems with modular components, admin panels, and media handling out of the box.
+  </Card>
+  <Card title="POS System" icon="shopping-cart" href="/docs/pos">
+    Build point-of-sale applications with inventory tracking, payment integrations, and receipt generation.
+  </Card>
+  <Card title="Business Tools" icon="bar-chart-3" href="/docs/business">
+    Access utilities for reporting, user management, and workflow automation tailored for Laravel.
+  </Card>
+</Columns>
+
+## Quick Start
+
+Get up and running in minutes. Follow these steps to integrate your first Louis Lukkanit package.
+
+<Steps>
+  <Step title="Install Composer Package" icon="download">
+    Add the core package via Composer. Replace `louis-lukkanit/cms` with your chosen package.
+
+    <CodeGroup tabs="Bash">
+      ```bash
+      composer require koamishin/louis-lukkanit-cms
+      ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Publish Assets" icon="upload">
+    Publish migrations, configs, and views to your project.
+
+    ```bash
+    php artisan vendor:publish --provider="Koamishin\\LouisLukkanit\\Cms\\ServiceProvider"
+    ```
+  </Step>
+
+  <Step title="Run Migrations" icon="database">
+    Set up your database schema.
+
+    ```bash
+    php artisan migrate
+    ```
+  </Step>
+
+  <Step title="Access Dashboard" icon="monitor">
+    Visit `/admin` in your app after seeding data.
+
+    ```bash
+    php artisan db:seed --class=AdminSeeder
+    ```
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Check the [official repository](https://github.com/koamishin/louis-lukkanit) for the latest releases and contribution guidelines.
+</Callout>
+
+## Next Steps
+
+Dive deeper into specific documentation.
+
+<Columns cols={2}>
+  <Card title="Quickstart Guide" icon="play" href="/quickstart">
+    Detailed setup for your first project.
+  </Card>
+  <Card title="Authentication" icon="shield" href="/authentication">
+    Secure your apps with built-in auth flows.
+  </Card>
+  <Card title="Package Reference" icon="package" href="/packages">
+    Full list of available packages.
+  </Card>
+  <Card title="Changelog" icon="git-branch" href="/changelog">
+    Track updates and improvements.
+  </Card>
+</Columns>
+
+<Tabs>
+  <Tab title="CMS Example" icon="layout">
+    Configure your CMS routes effortlessly.
+
+    ```php
+    Route::prefix('admin')->group(function () {
+        Route::resource('posts', PostController::class);
+    });
+    ```
+  </Tab>
+  <Tab title="POS Example" icon="shopping-cart">
+    Handle sales transactions.
+
+    ```php
+    $sale = Sale::create([
+        'total' => 99.99,
+        'items' => $cartItems,
+    ]);
+    ```
+  </Tab>
+</Tabs>
+
+Ready to build? Start with the Quickstart and contribute back to the community.

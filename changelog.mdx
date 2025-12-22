@@ -1,0 +1,142 @@
+---
+title: Changelog
+description: Track the evolution of Louis Lukkanit with detailed release notes on new features, bug fixes, and updates.
+---
+
+## Recent Releases
+
+Louis Lukkanit evolves rapidly to deliver robust Laravel packages for CMS, POS, and business systems. Review the latest updates below to see enhancements that empower your development workflow.
+
+<Update label="2024-10-15" description="v2.0.0" tags={["breaking", "feature"]}>
+
+## New Features
+
+- Added modular CMS builder with drag-and-drop interface for custom content types
+- Introduced real-time inventory sync for POS systems using Laravel Broadcasting
+- New business analytics dashboard with export to PDF and CSV
+
+## Improvements
+
+- Optimized database queries reducing load times by `>40%`
+- Enhanced authentication with passkey support
+
+## Bug Fixes
+
+- Fixed race conditions in multi-tenant order processing
+- Resolved session expiration issues during long POS transactions
+
+## Breaking Changes
+
+The authentication middleware now requires explicit configuration. Update your `app/Http/Kernel.php`:
+
+````php
+// Add to $middlewareGroups['web']
+\App\Http\Middleware\PasskeyAuth::class,
+````
+
+Run migrations for new CMS tables:
+
+````bash
+php artisan migrate
+composer require koamishin/cms:^2.0
+````
+
+</Update>
+
+<Update label="2024-09-10" description="v1.5.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Integrated Stripe payment gateway for POS with subscription support
+- Added customizable reporting engine for business systems
+
+## Improvements
+
+- Streamlined package installation with auto-discovery for Laravel 11
+
+## Bug Fixes
+
+- Corrected validation errors in multi-currency order forms
+- Patched XSS vulnerabilities in user-generated CMS content
+
+</Update>
+
+<Update label="2024-08-05" description="v1.4.0" tags={["improvement", "bugfix"]}>
+
+## Improvements
+
+- Performance boosts via query caching in high-traffic POS environments
+- Better error logging with contextual data for business modules
+
+## Bug Fixes
+
+- Fixed decimal precision issues in inventory calculations
+- Resolved conflicts with popular Laravel packages like Spatie Permissions
+
+</Update>
+
+## Updating Louis Lukkanit
+
+<Callout kind="info">
+Always back up your database and review breaking changes before updating.
+</Callout>
+
+<Steps>
+  <Step title="Backup" icon="database">
+    Create a full backup of your application and database.
+  </Step>
+  <Step title="Update Package" icon="package">
+    ```bash
+    composer update koamishin/louis-lukkanit:^2.0
+    ```
+  </Step>
+  <Step title="Run Migrations" icon="git-branch">
+    ```bash
+    php artisan migrate
+    php artisan optimize:clear
+    ```
+  </Step>
+  <Step title="Test" icon="test-tube">
+    Run your test suite to verify compatibility.
+  </Step>
+</Steps>
+
+## Contributing
+
+You contribute to Louis Lukkanit by submitting pull requests on GitHub. Focus on well-tested features that enhance CMS, POS, or business functionalities.
+
+<Columns cols={2}>
+  <Card title="Report Issues" icon="bug" href="https://github.com/koamishin/louis-lukkanit/issues" target="_blank">
+    Found a bug? Open an issue with reproduction steps.
+  </Card>
+  <Card title="Submit PRs" icon="git-pull-request" href="https://github.com/koamishin/louis-lukkanit/pulls" target="_blank">
+    Fork, branch, and submit your changes.
+  </Card>
+  <Card title="Docs" icon="book-open" href="https://github.com/koamishin/louis-lukkanit/blob/main/CONTRIBUTING.md" target="_blank">
+    Read contribution guidelines.
+  </Card>
+</Columns>
+
+## Roadmap
+
+<Expandable title="Upcoming Features" default-open="true">
+
+Explore planned enhancements that will supercharge your Laravel applications.
+
+<Columns cols={3}>
+  <Card title="AI-Powered CMS" icon="brain" href="#">
+    Generate content dynamically with AI integration.
+  </Card>
+  <Card title="Advanced POS Analytics" icon="bar-chart-3" href="#">
+    Predictive inventory and sales forecasting.
+  </Card>
+  <Card title="Multi-Region Support" icon="globe" href="#">
+    Global business systems with localized features.
+  </Card>
+</Columns>
+
+</Expandable>
+
+<Callout kind="tip">
+Subscribe to releases on GitHub to stay informed about new versions and features.
+</Callout>

@@ -1,0 +1,206 @@
+---
+title: Installation Guide
+description: Get started by installing Louis Lukkanit packages and applications in your Laravel project with step-by-step instructions for Composer and setup.
+---
+
+## Prerequisites
+
+Before installing Louis Lukkanit packages, ensure your environment meets these requirements.
+
+<Callout kind="info">
+
+Koamishin develops high-quality, open-source Laravel packages and applications, including CMS, POS, and business systems.
+
+- PHP `{>=8.1}`
+- Laravel `{>=10.0}`
+- Composer `{>=2.0}`
+- Node.js and NPM for asset compilation (optional for full applications)
+- Git for cloning repositories
+
+</Callout>
+
+Verify your setup by running `php --version` and `composer --version` in your terminal.
+
+## Install Packages with Composer
+
+Use Composer to add Louis Lukkanit packages to your existing Laravel project. Follow these steps.
+
+<Steps>
+
+<Step title="Create or Navigate to Laravel Project" icon="folder">
+
+If you don't have a Laravel project, create one:
+
+````bash
+composer create-project laravel/laravel louis-lukkanit-app
+cd louis-lukkanit-app
+````
+
+</Step>
+
+<Step title="Install a Package" icon="download">
+
+Choose a package like the CMS module and install it:
+
+<CodeGroup tabs="CMS,POS">
+
+````bash
+composer require koamishin/louis-lukkanit-cms
+````
+
+````bash
+composer require koamishin/louis-lukkanit-pos
+````
+
+</CodeGroup>
+
+</Step>
+
+<Step title="Publish Assets" icon="settings">
+
+Publish and run migrations:
+
+````bash
+php artisan vendor:publish --tag=louis-lukkanit-config
+php artisan migrate
+````
+
+</Step>
+
+</Steps>
+
+## Set Up Full Applications
+
+For complete applications like CMS or POS, clone the repositories directly.
+
+<Tabs>
+
+<Tab title="CMS" icon="layout">
+
+Clone and set up the CMS application:
+
+<Steps>
+
+<Step title="Clone Repository">
+
+````bash
+git clone https://github.com/koamishin/louis-lukkanit-cms.git
+cd louis-lukkanit-cms
+````
+
+</Step>
+
+<Step title="Install Dependencies">
+
+````bash
+composer install
+npm install
+````
+
+</Step>
+
+<Step title="Environment Setup">
+
+Copy the example environment file:
+
+````bash
+cp .env.example .env
+php artisan key:generate
+````
+
+Edit `.env` with your database details.
+
+</Step>
+
+</Steps>
+
+</Tab>
+
+<Tab title="POS" icon="shopping-cart">
+
+Clone and set up the POS application:
+
+<Steps>
+
+<Step title="Clone Repository">
+
+````bash
+git clone https://github.com/koamishin/louis-lukkanit-pos.git
+cd louis-lukkanit-pos
+````
+
+</Step>
+
+<Step title="Install Dependencies">
+
+````bash
+composer install
+npm install && npm run build
+````
+
+</Step>
+
+<Step title="Run Migrations">
+
+````bash
+php artisan migrate --seed
+````
+
+</Step>
+
+</Steps>
+
+</Tab>
+
+</Tabs>
+
+## Verify Installation
+
+Test your installation to ensure everything works.
+
+<CodeGroup tabs="Package Test,Application Test">
+
+````bash
+# Test CMS package routes
+php artisan route:list | grep lukkanit
+````
+
+````bash
+# Start server and visit
+php artisan serve
+# Open http://localhost:8000/admin (for CMS)
+````
+
+</CodeGroup>
+
+You should see the Louis Lukkanit dashboard without errors. Check the logs with `tail -f storage/logs/laravel.log` if issues arise.
+
+<Callout kind="tip">
+
+Run `php artisan optimize` after verification for production readiness.
+
+</Callout>
+
+## Next Steps
+
+<Columns cols={3}>
+
+<Card title="Configuration" icon="settings" href="/configuration">
+
+Customize settings and environment variables.
+
+</Card>
+
+<Card title="Authentication" icon="lock" href="/authentication">
+
+Set up user authentication and roles.
+
+</Card>
+
+<Card title="Introduction" icon="book-open" href="/introduction">
+
+Learn core concepts and features.
+
+</Card>
+
+</Columns>

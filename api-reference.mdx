@@ -1,0 +1,233 @@
+---
+title: API Reference
+description: Comprehensive reference for Louis Lukkanit classes, methods, and configurations, including code snippets for developers.
+---
+
+## Overview
+
+Access the Louis Lukkanit API at `https://api.example.com/v1` to manage CMS content, POS transactions, and business systems. Authenticate requests using Bearer tokens. All endpoints return JSON responses.
+
+<Callout kind="info">
+  Review your `{API_KEY}` from the dashboard at `https://dashboard.example.com` before integrating.
+</Callout>
+
+<Columns cols={3}>
+  <Card title="CMS Endpoints" icon="file-text" href="#cms-endpoints">
+    Manage pages and content.
+  </Card>
+  <Card title="POS Endpoints" icon="shopping-cart" href="#pos-endpoints">
+    Handle sales and inventory.
+  </Card>
+  <Card title="Configuration" icon="settings" href="#configuration">
+    Customize package behavior.
+  </Card>
+</Columns>
+
+## Authentication
+
+Secure all requests with a Bearer token in the `Authorization` header.
+
+<ParamField header="Authorization" param-type="string" required="true">
+  Bearer `{YOUR_TOKEN}`.
+</ParamField>
+
+<ParamField header="Content-Type" param-type="string" required="true">
+  `application/json`.
+</ParamField>
+
+```javascript
+// Example: Fetch token first
+const token = 'your-token-here';
+fetch('https://api.example.com/v1/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ email: 'user@example.com', password: 'pass' })
+});
+```
+
+## CMS Endpoints
+
+Retrieve and manage CMS pages.
+
+### List Pages
+
+<Request tabs="cURL,JavaScript,Python" show-lines="true">
+  ```bash
+  curl -X GET https://api.example.com/v1/cms/pages \
+    -H "Authorization: Bearer YOUR_TOKEN" \
+    -H "Content-Type: application/json"
+  ```
+  ```javascript
+  const response = await fetch('https://api.example.com/v1/cms/pages', {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer YOUR_TOKEN',
+      'Content-Type': 'application/json'
+    }
+  });
+  const data = await response.json();
+  ```
+  ```python
+  import requests
+  response = requests.get(
+    'https://api.example.com/v1/cms/pages',
+    headers={
+      'Authorization': 'Bearer YOUR_TOKEN',
+      'Content-Type': 'application/json'
+    }
+  )
+  data = response.json()
+  ```
+</Request>
+
+<Response tabs="200">
+```json
+{
+  "data": [
+    {
+      "id": "page-123",
+      "title": "Home Page",
+      "slug": "home",
+      "content": "Welcome content"
+    }
+  ],
+  "meta": {
+    "total": 50,
+    "per_page": 25
+  }
+}
+```
+</Response>
+
+<ResponseField name="data" field-type="array" required="true">
+  Array of page objects.
+</ResponseField>
+
+<ResponseField name="meta" field-type="object">
+  Pagination metadata.
+</ResponseField>
+
+<ParamField query="limit" param-type="integer" required="false">
+  Pages per response, default `25`, max `100`.
+</ParamField>
+
+## POS Endpoints
+
+<Tabs>
+  <Tab title="Create Sale" icon="shopping-cart">
+    Create a new point-of-sale transaction.
+
+    <Steps>
+      <Step title="Prepare Payload">
+        Include items and customer data.
+      </Step>
+      <Step title="Send POST Request">
+        Use the endpoint below.
+      </Step>
+    </Steps>
+
+    <Request show-lines="false">
+    ```bash
+    curl -X POST https://api.example.com/v1/pos/sales \
+      -H "Authorization: Bearer YOUR_TOKEN" \
+      -d '{
+        "items": [{"product_id": "prod-1", "quantity": 2}],
+        "customer_email": "customer@example.com"
+      }'
+    ```
+    </Request>
+  </Tab>
+  <Tab title="List Inventory" icon="package">
+    Fetch current stock levels.
+
+    ```python
+    import requests
+    response = requests.get(
+      'https://api.example.com/v1/pos/inventory',
+      headers={'Authorization': 'Bearer YOUR_TOKEN'}
+    )
+    ```
+  </Tab>
+</Tabs>
+
+## Laravel Package Integration
+
+Integrate Louis Lukkanit packages into your Laravel application.
+
+<CodeGroup tabs="Service Provider,Facade Usage">
+  ```php
+  // config/louis-lukkanit.php
+  return [
+      'api_key' => env('LOUIS_API_KEY'),
+      'base_url' => 'https://api.example.com/v1',
+  ];
+  ```
+  ```php
+  use LouisLukkanit\CmsManager;
+
+  class PageController extends Controller
+  {
+      public function index()
+      {
+          $pages = CmsManager::pages()->get();
+          return view('pages.index', compact('pages'));
+      }
+  }
+  ```
+</CodeGroup>
+
+### Configuration Options
+
+| Key              | Type    | Default       | Description                          |
+|------------------|---------|---------------|--------------------------------------|
+| `api_key`        | string  | `null`        | Your `{API_KEY}`                     |
+| `base_url`       | string  | `/v1`         | API base endpoint                    |
+| `timeout`        | integer | `30`          | Request timeout in seconds           |
+
+<Callout kind="tip">
+  Publish config with `php artisan vendor:publish --tag=louis-config`.
+</Callout>
+
+## Error Handling
+
+Common errors include `401 Unauthorized` and `429 Rate Limited`.
+
+<Response tabs="401">
+```json
+{
+  "error": "Unauthorized",
+  "message": "Invalid token"
+}
+```
+</Response>
+
+```php
+try {
+    $response = CmsManager::pages()->get();
+} catch (Exception $e) {
+    if ($e->getCode() === 401) {
+        // Refresh token
+    }
+}
+```
+
+<Expandable title="Advanced Rate Limiting" default-open="false">
+  The API enforces 100 requests per minute. Use exponential backoff.
+
+  ```javascript
+  // Implement retry logic
+  const retry = (fn, retries = 3) => async (...args) => {
+    try {
+      return await fn(...args);
+    } catch (err) {
+      if (retries && err.status === 429) {
+        await new Promise(r => setTimeout(r, 2 ** (3 - retries) * 1000));
+        return retry(fn, retries - 1)(...args);
+      }
+      throw err;
+    }
+  };
+  ```
+</Expandable>

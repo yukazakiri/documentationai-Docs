@@ -1,0 +1,24 @@
+---
+title: Package Installation Error
+description: Resolve installation errors with Koamishin packages.
+---
+
+## Symptoms
+
+- Composer install fails
+- Error: "Could not find package koamishin/cms"
+
+## Solution
+
+<Steps>
+  <Step title="Check package name">
+    Ensure you're using the correct package ID: `koamishin/cms`
+  </Step>
+  <Step title="Update Composer">
+    ````bash
+    composer self-update
+    composer clear-cache
+    composer require koamishin/cms
+    ````
+  </Step>
+</Steps>
