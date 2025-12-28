@@ -1,117 +1,61 @@
 ---
-title: Introduction to Louis Lukkanit
-description: Discover Louis Lukkanit, a collection of high-quality open-source Laravel packages and applications from Koamishin, designed to empower developers with tools for CMS, POS, and business systems.
+title: Introduction to Koamishin
+description: >-
+  Explore Koamishin, a collective of passionate developers crafting
+  high-quality, open-source Laravel applications and packages like FilaGrade and
+  GamifiedPortal.
 ---
-
 ## Overview
 
-Louis Lukkanit brings you premium open-source Laravel packages and applications crafted by Koamishin. You get robust tools for building CMS platforms, POS systems, and comprehensive business applications. These solutions prioritize developer productivity, code quality, and seamless integration into your Laravel projects.
+Koamishin is an open-source initiative dedicated to empowering the Laravel community with robust, production-ready tools. From educational management systems to gamified portals and business foundations, our solutions are built to accelerate development and promote modern best practices.
 
-Koamishin focuses on empowering the community with maintainable, feature-rich code that scales. Whether you build e-commerce sites or enterprise dashboards, Louis Lukkanit accelerates your development.
+We are a collective of developers who believe code is a craft. Our mission is to lower barriers for developers by providing essential, well-documented tools that solve real-world problems—completely free.
 
-<Callout kind="info">
-  All packages follow Laravel best practices and support the latest LTS versions.
+<Callout kind="info" collapsed="false">
+  **Community Driven:** Koamishin projects are built for the community, by the community, with a strong focus on clean code and scalability.
 </Callout>
 
-## Key Features
+## Ecosystem Highlights
 
-Louis Lukkanit stands out with production-ready components designed for real-world use.
+Koamishin provides a diverse range of solutions tailored for different sectors.
 
-<Columns cols={3}>
-  <Card title="CMS Builder" icon="layout" href="/docs/cms">
-    Create dynamic content management systems with modular components, admin panels, and media handling out of the box.
+<Columns cols="3">
+  <Card title="Educational Tools" href="/docs/filagrade" icon="academic-cap" horizontal="false">
+    Streamline educational workflows with **FilaGrade**, a Filament-powered system for grading, lesson planning, and instructor efficiency.
   </Card>
-  <Card title="POS System" icon="shopping-cart" href="/docs/pos">
-    Build point-of-sale applications with inventory tracking, payment integrations, and receipt generation.
+
+  <Card title="Gamified Solutions" href="/docs/gamified-portal" icon="trophy" horizontal="false">
+    Engage users with **GamifiedPortal**, a modern GLPv3 fork featuring modular architecture and built-in gamification mechanics.
   </Card>
-  <Card title="Business Tools" icon="bar-chart-3" href="/docs/business">
-    Access utilities for reporting, user management, and workflow automation tailored for Laravel.
+
+  <Card title="Business Core" href="/docs/business-suite" icon="briefcase" horizontal="false">
+    Jumpstart custom apps with **Business Suite Core**, providing essential user management, roles, and settings out of the box.
   </Card>
 </Columns>
 
-## Quick Start
-
-Get up and running in minutes. Follow these steps to integrate your first Louis Lukkanit package.
-
-<Steps>
-  <Step title="Install Composer Package" icon="download">
-    Add the core package via Composer. Replace `louis-lukkanit/cms` with your chosen package.
-
-    <CodeGroup tabs="Bash">
-      ```bash
-      composer require koamishin/louis-lukkanit-cms
-      ```
-    </CodeGroup>
-  </Step>
-
-  <Step title="Publish Assets" icon="upload">
-    Publish migrations, configs, and views to your project.
-
-    ```bash
-    php artisan vendor:publish --provider="Koamishin\\LouisLukkanit\\Cms\\ServiceProvider"
-    ```
-  </Step>
-
-  <Step title="Run Migrations" icon="database">
-    Set up your database schema.
-
-    ```bash
-    php artisan migrate
-    ```
-  </Step>
-
-  <Step title="Access Dashboard" icon="monitor">
-    Visit `/admin` in your app after seeding data.
-
-    ```bash
-    php artisan db:seed --class=AdminSeeder
-    ```
-  </Step>
-</Steps>
-
-<Callout kind="tip">
-  Check the [official repository](https://github.com/koamishin/louis-lukkanit) for the latest releases and contribution guidelines.
+<Callout kind="tip" collapsed="false">
+  Visit our [GitHub Organization](https://github.com/koamishin) to contribute or star our repositories.
 </Callout>
 
 ## Next Steps
 
-Dive deeper into specific documentation.
+Deep dive into the documentation for our flagship projects.
 
-<Columns cols={2}>
-  <Card title="Quickstart Guide" icon="play" href="/quickstart">
-    Detailed setup for your first project.
+<Columns cols="2">
+  <Card title="FilaGrade Docs" href="/docs/filagrade/introduction" icon="book-open" horizontal="false">
+    Learn how to configure automated grading and role-based access for schools.
   </Card>
-  <Card title="Authentication" icon="shield" href="/authentication">
-    Secure your apps with built-in auth flows.
+
+  <Card title="GamifiedPortal Guide" href="/docs/gamified-portal/setup" icon="star" horizontal="false">
+    Implement badges, points, and user profiles in your portal.
   </Card>
-  <Card title="Package Reference" icon="package" href="/packages">
-    Full list of available packages.
+
+  <Card title="Contribution Guide" href="/contributing" icon="heart" horizontal="false">
+    Join the collective! Guidelines for submitting PRs and reporting issues.
   </Card>
-  <Card title="Changelog" icon="git-branch" href="/changelog">
-    Track updates and improvements.
+
+  <Card title="Roadmap" href="/roadmap" icon="map-pin" horizontal="false">
+    See what's coming next, from AI lesson planning to advanced CRM features.
   </Card>
 </Columns>
 
-<Tabs>
-  <Tab title="CMS Example" icon="layout">
-    Configure your CMS routes effortlessly.
-
-    ```php
-    Route::prefix('admin')->group(function () {
-        Route::resource('posts', PostController::class);
-    });
-    ```
-  </Tab>
-  <Tab title="POS Example" icon="shopping-cart">
-    Handle sales transactions.
-
-    ```php
-    $sale = Sale::create([
-        'total' => 99.99,
-        'items' => $cartItems,
-    ]);
-    ```
-  </Tab>
-</Tabs>
-
-Ready to build? Start with the Quickstart and contribute back to the community.
